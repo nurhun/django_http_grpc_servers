@@ -9,8 +9,8 @@ import signal
 class Command(BaseCommand):
     help = 'Run all commands'
     commands = [
-        'python manage.py grpcrunserver',
-        'python manage.py runserver'
+        'python manage.py grpcrunserver 0.0.0.0:50051',
+        'python manage.py runserver 0.0.0.0:8000'
     ]
 
     def handle(self, *args, **options):
