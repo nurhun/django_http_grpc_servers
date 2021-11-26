@@ -8,7 +8,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/nurhun/django_crud.git'
+    repoURL: 'https://github.com/nurhun/django_http_grpc_servers.git'
     path: k8s/
     targetRevision: HEAD
   destination:

@@ -27,7 +27,7 @@ spec:
         app: crud
     spec:
       containers:
-      - image: nurhun/django_crud
+      - image: nurhun/django_http_grpc_servers
         imagePullPolicy: Always
         name: crud
         ports:
@@ -90,7 +90,10 @@ spec:
   ports:
   - port: 8000
     protocol: TCP
-    name: django-port
+    name: http-port
+  - port: 50051
+    protocol: TCP
+    name: grpc-port
   selector:
     app: crud
   type: LoadBalancer

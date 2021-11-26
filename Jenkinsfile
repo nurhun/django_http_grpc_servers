@@ -8,7 +8,7 @@ pipeline {
     }
     
     environment {
-        IMAGE_NAME = "nurhun/django_crud"
+        IMAGE_NAME = "nurhun/django_http_grpc_servers"
         COMMIT_SHA = getCommitSHA()
         IMAGE_TAG = "v${BUILD_NUMBER}.${COMMIT_SHA}"
     }

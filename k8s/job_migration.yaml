@@ -9,7 +9,7 @@ spec:
     spec:
       containers:
         - name: django
-          image: nurhun/django_crud
+          image: nurhun/django_http_grpc_servers
           imagePullPolicy: Always
           command: ['python', 'manage.py', 'migrate']
           # env:

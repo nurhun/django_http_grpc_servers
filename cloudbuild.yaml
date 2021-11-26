@@ -24,7 +24,7 @@ steps:
 options:
   env:
     - PROJECT_ID=nifty-bird-321722
-    - REPOSITORY=django_crud
+    - REPOSITORY=django_http_grpc_servers
     - TAG=v$BUILD_ID.$SHORT_SHA
 availableSecrets:
   secretManager:

@@ -3,7 +3,7 @@ services:
 
   # Django
   django:
-    image: nurhun/django_crud:v0.1
+    image: nurhun/django_http_grpc_servers
     container_name: Django
     ports:
       - 8000:8000
