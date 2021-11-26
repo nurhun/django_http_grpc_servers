@@ -1,0 +1,98 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: crud
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crud-deployment
+  namespace: crud
+  labels:
+    app: crud
+spec:
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  replicas: 1
+  selector:
+    matchLabels:
+      app: crud
+  template:
+    metadata:
+      labels:
+        app: crud
+    spec:
+      containers:
+      - image: nurhun/django_crud
+        imagePullPolicy: Always
+        name: crud
+        ports:
+        - containerPort: 8000
+          protocol: TCP
+        # env:
+        #   - name: POSTGRES_HOST
+        #     valueFrom:
+        #       secretKeyRef:
+        #         name: psql
+        #         key: PG_HOST
+        #   - name: POSTGRES_PORT
+        #     valueFrom:
+        #       secretKeyRef:
+        #         name: psql
+        #         key: PG_PORT
+        #   - name: POSTGRES_DB
+        #     valueFrom:
+        #       secretKeyRef:
+        #         name: psql
+        #         key: PG_DB
+        #   - name: POSTGRES_USER
+        #     valueFrom:
+        #       secretKeyRef:
+        #         name: psql
+        #         key: PG_USER
+        #   - name: POSTGRES_PASSWORD
+        #     valueFrom:
+        #       secretKeyRef:
+        #         name: psql
+        #         key: PG_PASSWORD
+        resources:
+          limits:
+            cpu: 50m
+            ephemeral-storage: 1Gi
+            memory: 200Mi
+          requests:
+            cpu: 10m
+            ephemeral-storage: 1Gi
+            memory: 100Mi
+        # securityContext:
+        #   capabilities:
+        #     drop:
+        #     - NET_RAW
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      # securityContext:
+        # seccompProfile:
+        #   type: RuntimeDefault
+      terminationGracePeriodSeconds: 30
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: crud
+  namespace: crud
+  labels:
+    app: crud
+spec:
+  ports:
+  - port: 8000
+    protocol: TCP
+    name: django-port
+  selector:
+    app: crud
+  type: LoadBalancer
+---
+# Refrence: https://markgituma.medium.com/kubernetes-local-to-production-with-django-3-postgres-with-migrations-on-minikube-31f2baa8926e

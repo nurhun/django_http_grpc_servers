@@ -1,0 +1,6 @@
+# /tmp/prometheus.yml
+scrape_configs:
+- job_name: 'my-app'
+  scrape_interval: 5s
+  static_configs:
+  - targets: ['localhost:8000']

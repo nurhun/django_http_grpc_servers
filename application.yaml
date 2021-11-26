@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: crud
+  namespace: argocd
+  # finalizers:
+  #   - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/nurhun/django_crud.git'
+    path: k8s/
+    targetRevision: HEAD
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: crud
+  syncPolicy:
+    automated: 
+      # Prune Resources if true, Argo will delete resources if they are no longer defined in Git.
+      prune: true
+      # Self Heal if true, Argo will force the state defined in Git into the cluster when a deviation in the cluster is detected.
+      selfHeal: true
+    syncOptions:
+    - Validate=true
+    - CreateNamespace=true
+    - PrunePropagationPolicy=foreground
+    # - PruneLast=true
+    # retry:
+      # limit: 5
+    #   backoff:
+    #     duration: 5s
+    #     factor: 2
+    #     maxDuration: 3m
