@@ -89,10 +89,12 @@ metadata:
     app: crud
 spec:
   ports:
-  - port: 8000
+  - targetPort:8080
+    port: 8000
     protocol: TCP
     name: http-port
-  - port: 50051
+  - targetPort:50051
+    port: 50051
     protocol: TCP
     name: grpc-port
   selector:
